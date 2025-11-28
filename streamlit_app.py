@@ -160,4 +160,18 @@ if HAS_CANVAS and Image is not None and np is not None:
 else:
     st.info("그림판 기능은 추가 패키지(streamlit-drawable-canvas, Pillow, numpy)가 필요합니다. 설치 후 앱을 재시작하세요: `pip install -r requirements.txt`.")
 
+# --- 게임하러가기 버튼 추가 ---
+st.markdown("---")
+st.write("")
+col_game = st.columns([1, 2, 1])[1]
+with col_game:
+    game_btn = st.button("🎮 게임하러가기", key="go_to_game", use_container_width=True)
+
+# 페이지 이동 (농도 맞추기 게임)
+if game_btn:
+    try:
+        st.switch_page("pages/game.py")
+    except Exception:
+        st.warning("게임 페이지가 아직 준비되지 않았습니다. 'pages/game.py' 파일을 만들어주세요.")
+
 
