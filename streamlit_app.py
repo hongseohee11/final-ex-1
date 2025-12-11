@@ -126,7 +126,8 @@ st.header("내가 만든 색으로 직접 그림을 그려볼까요?")
 if HAS_CANVAS and Image is not None and np is not None:
     st.write("붓 크기 조절")
 
-    brush_width = st.slider("붓 크기", min_value=1, max_value=50, value=10)
+    # 붓 크기를 더 넓게 사용할 수 있도록 기본값과 최대값을 상향 조정
+    brush_width = st.slider("붓 크기", min_value=1, max_value=100, value=30)
 
     # Create a white background canvas and set stroke_color to the mixed color
     canvas_result = st_canvas(
@@ -147,6 +148,8 @@ if HAS_CANVAS and Image is not None and np is not None:
         img = Image.fromarray(img_data.astype("uint8"), "RGBA")
         img_rgb = img.convert("RGB")
         st.image(img_rgb, caption="내가 그린 그림", use_column_width=True)
+        # Save image to session_state so game page can use it
+        st.session_state.user_drawing = img_rgb
         # Provide download
         buf = None
         try:
